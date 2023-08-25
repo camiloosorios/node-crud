@@ -26,7 +26,7 @@ class AuthRouter {
             check('email', 'Correo Electrónico es requerido').not().isEmpty(),
             check('email', 'Correo Electrónico Inválido').isEmail(),
             check('password', 'La contraseña debe tener min. 6 caractéres').isLength({ min: 6 }),
-            check('money', 'El campo dinero debe ser un número').isNumeric(),
+            check('money', 'El campo dinero es requerido y númerico').isNumeric(),
             fieldsValidator
         ], this.authController.register);
         

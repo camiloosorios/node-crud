@@ -17,6 +17,9 @@ class Product extends BaseEntity {
 
   @Column()
   quantity: number;
+
+  @Column({ default: true })
+  enabled: boolean;
 }
 
 export default Product;

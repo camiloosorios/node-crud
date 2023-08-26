@@ -3,6 +3,7 @@ import cors from "cors";
 import Database from "./db/Database";
 import AuthRouter from "./routes/AuthRouter";
 import ProductRouter from "./routes/ProductRouter";
+import PurchaseRouter from "./routes/PurchaseRouter";
 
 class Server {
 
@@ -27,9 +28,11 @@ class Server {
 
     const authRouter = new AuthRouter();
     const productRouter = new ProductRouter();
+    const purchaseRouter = new PurchaseRouter();
 
     this.app.use('/auth', authRouter.getRoutes());
     this.app.use('/products', productRouter.getRoutes());
+    this.app.use("/purchases", purchaseRouter.getRoutes());
   }
 
   private async connectToDatabase(): Promise<void> {

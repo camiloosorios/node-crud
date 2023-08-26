@@ -33,7 +33,7 @@ class AuthController {
             return res.status(403).json({ message: "Usuario y/o contraseña incorrectos", token: '' });
 
         } catch (err) {
-
+            console.error("Error durante el login: ",err);
             return res.status(500).json({ message: "Error en el servidor, comuniquese con un administrador", token: '' });
         }
         
@@ -70,7 +70,7 @@ class AuthController {
             return res.json({ message: "Usuario creado correctamente", token });
 
         }catch (err) {
-            console.error("Error creando usuario: " + err);
+            console.error("Error creando usuario: ", err);
             return res.status(500).json({ message: "Error en el servidor, comuniquese con un administrador", token: '' });
         }
         

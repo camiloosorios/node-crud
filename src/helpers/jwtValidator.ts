@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { JsonWebTokenPayload } from "../interfaces/JWTInterface";
+
 
 const validateJsonWebToken = (req: Request, res: Response, next: NextFunction): Response | void => {
 
@@ -9,13 +11,13 @@ const validateJsonWebToken = (req: Request, res: Response, next: NextFunction): 
         return res.status(401).json({ message:  "El token es requerido"});
     }
 
-    jwt.verify(token, process.env.SECRET_KEY!, (err: Error | null) => {
-        if (err) {
-            return res.status(401).json({ message: 'El token es inválido o ha expirado' });
-        } else {
-            next();
-        }
-    });
+    try {
+        const payload = jwt.verify(String(token), process.env.SECRET_KEY!) as JsonWebTokenPayload;
+        req.body.userId = payload.id;
+        next();
+    } catch (err) {
+        return res.status(401).json({ message: 'El token es inválido o ha expirado' });
+    }
     
 }
 

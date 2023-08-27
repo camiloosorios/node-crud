@@ -13,8 +13,7 @@ export class AuthRouter {
         this.authController = new AuthController();
     }
     
-    public getRoutes(): Router {
-        
+    public getRoutes(): Router {        
         this.router.post('/login', [
             check('email', 'Correo Electrónico Inválido')
                 .isEmail(),

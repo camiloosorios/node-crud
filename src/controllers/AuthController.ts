@@ -6,8 +6,7 @@ import { User } from '../entities';
 
 export class AuthController {
 
-    public async login(req: Request, res: Response): Promise<Response> {
-        
+    public async login(req: Request, res: Response): Promise<Response> {        
         const { email, password } = req.body;
 
         try {            
@@ -24,13 +23,15 @@ export class AuthController {
 
                     const token = generateToken(payload, process.env.SECRET_KEY!);
 
-                    return res.json({ message: 'Usuario autenticado correctamente', token });
-                }
-                
-                return res.status(403).json({ message: 'Usuario y/o contraseña incorrectos', 
-                    token: null });
+                    return res.json({ 
+                        message: 'Usuario autenticado correctamente', token 
+                    });
+                }                
+                return res.status(403).json({ 
+                    message: 'Usuario y/o contraseña incorrectos', 
+                    token: null 
+                });
             } 
-
             return res.status(403).json({ 
                 message: 'Usuario y/o contraseña incorrectos', 
                 token: null });
@@ -45,8 +46,7 @@ export class AuthController {
         
     }
 
-    public async create(req: Request, res: Response): Promise<Response> {
-        
+    public async create(req: Request, res: Response): Promise<Response> {        
         const { name, email, password, money } = req.body;
 
         try {
@@ -59,7 +59,6 @@ export class AuthController {
             }
 
             const encryptedPassword: string = passwordEncrypter(password);
-
             const newUser: User = new User();
 
             newUser.name = name;
@@ -75,7 +74,10 @@ export class AuthController {
 
             const token = generateToken(payload, process.env.SECRET_KEY!);
 
-            return res.status(201).json({ message: 'Usuario creado correctamente', token });
+            return res.status(201).json({ 
+                message: 'Usuario creado correctamente', 
+                token 
+            });
 
         }catch (err) {
             console.error(`Error creando usuario: ${err}`);

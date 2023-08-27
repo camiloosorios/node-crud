@@ -79,7 +79,6 @@ export class PurchaseController {
 
     private async findSelectedProducts(products: ProductRequest[]): Promise<Product[]> {
         const productsId: number[] = products.map(product => product.id);
-
         const productColumns: string[] = ['product.id', 'product.name', 'product.category', 
         'product.price', 'product.quantity'];
         
@@ -95,7 +94,9 @@ export class PurchaseController {
     private validateProductExistence(selectedProducts: Product[], 
         requestedProducts: ProductRequest[]): void {
         for (const selectedProduct of selectedProducts) {
-            const matchingProduct = requestedProducts.find(product => product.id === selectedProduct.id);
+            const matchingProduct = requestedProducts
+                .find(product => product.id === selectedProduct.id);
+
             if (matchingProduct && matchingProduct.quantity > selectedProduct.quantity) {
                 throw new PurchaseValidateError( 
                     `No hay suficientes existencias para el producto con ID: ${selectedProduct.id}`
@@ -118,7 +119,9 @@ export class PurchaseController {
     private async updateProductQuantities(selectedProducts: Product[], 
         requestedProducts: ProductRequest[]): Promise<void> {
         await Promise.all(selectedProducts.map(async selectedProduct => {
-            const matchingProduct = requestedProducts.find(product => product.id === selectedProduct.id);
+            const matchingProduct = requestedProducts
+                .find(product => product.id === selectedProduct.id);
+
             if (matchingProduct) {
                 selectedProduct.quantity -= matchingProduct.quantity;
                 await selectedProduct.save();
@@ -134,7 +137,9 @@ export class PurchaseController {
     private calculateTotal(products: Product[], 
         requestedProducts: ProductRequest[]): number {
         return requestedProducts.reduce((total, requestedProduct) => {
-            const matchingProduct = products.find(product => product.id === requestedProduct.id);
+            const matchingProduct = products
+                .find(product => product.id === requestedProduct.id);
+
             if (matchingProduct) {
                 return total + matchingProduct.price * requestedProduct.quantity;
             }

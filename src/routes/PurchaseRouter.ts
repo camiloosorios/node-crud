@@ -12,8 +12,7 @@ export class PurchaseRouter {
         this.purchaseController = new PurchaseController();
     }
     
-    public getRoutes(): Router {
-        
+    public getRoutes(): Router {        
         this.router.post('/', [
             jwtValidator,
             fieldsValidator

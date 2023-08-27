@@ -2,7 +2,6 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import Database from './db/Database';
 import { AuthRouter, ProductRouter, PurchaseRouter } from './routes';
-import { DataSource } from 'typeorm';
 
 class Server {
 
@@ -24,7 +23,6 @@ class Server {
   }
 
   private setupRoutes(): void {
-
     const authRouter = new AuthRouter();
     const productRouter = new ProductRouter();
     const purchaseRouter = new PurchaseRouter();
@@ -35,14 +33,11 @@ class Server {
   }
 
   private async connectToDatabase(): Promise<void> {
-    try {
-        
+    try {        
         await Database.createDataSource()
           .initialize()
           .then(()=> console.log('Database conected'));
-
     } catch (error) {
-
         console.error(`Error connecting to database: ${error}`);
 
     }

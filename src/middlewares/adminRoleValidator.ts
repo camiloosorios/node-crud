@@ -3,8 +3,7 @@ import { User } from '../entities';
 import { UserRoles } from '../enums/UserRoles';
 
 export const adminRoleValidator = async (req: Request, res: Response, 
-    next: NextFunction) => {
-    
+    next: NextFunction) => {    
       const { userId } = req.body;
       console.log(userId);
 
@@ -16,7 +15,6 @@ export const adminRoleValidator = async (req: Request, res: Response,
               message: `El usuario con iD ${userId} no existe` 
             });
         }
-
         console.log(user.role, UserRoles.ADMIN);
 
         if(user.role == UserRoles.USER) {
@@ -24,7 +22,6 @@ export const adminRoleValidator = async (req: Request, res: Response,
             message: 'Usuario no autorizado para realizar esta acción'
           });
         }
-
         next();
       } catch (err) {
           console.error(`Error al validar ROL ${err}`);

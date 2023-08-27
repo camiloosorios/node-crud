@@ -12,10 +12,8 @@ La URL base de la API es: `http://localhost:8080`
 
 ### Requisitos Previos
 
-Asegúrate de tener instalados los siguientes componentes antes de comenzar:
+Tener instalados los siguientes componentes antes de comenzar:
 
-- Node.js (versión 16+)
-- PostgreSQL (versión 15)
 - Docker y Docker Compose
 
 ### Pasos para Configurar el Ambiente

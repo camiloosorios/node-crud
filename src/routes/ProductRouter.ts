@@ -14,9 +14,11 @@ export class ProductRouter {
         this.productController = new ProductController();
     }
     
-    public getRoutes(): Router {
-        
-        this.router.get('/', this.productController.findAll);
+    public getRoutes(): Router {        
+        this.router.get('/', [
+            jwtValidator,
+            fieldsValidator
+        ], this.productController.findAll);
 
         this.router.post('/', [
             jwtValidator,

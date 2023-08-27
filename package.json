@@ -6,8 +6,7 @@
   "scripts": {
     "start": "NODE_PATH=./build node build/index.js",
     "build": "tsc -p .",
-    "dev": "npx nodemon src/index.ts",
-    "seed:users": "ts-node src/db/seeds/UserSeeder.ts"
+    "dev": "npx nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",

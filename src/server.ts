@@ -29,9 +29,9 @@ class Server {
     const productRouter = new ProductRouter();
     const purchaseRouter = new PurchaseRouter();
 
-    this.app.use('/auth', authRouter.getRoutes());
-    this.app.use('/products', productRouter.getRoutes());
-    this.app.use('/purchases', purchaseRouter.getRoutes());
+    this.app.use('/api/auth', authRouter.getRoutes());
+    this.app.use('/api/products', productRouter.getRoutes());
+    this.app.use('/api/purchases', purchaseRouter.getRoutes());
   }
 
   private async connectToDatabase(): Promise<void> {

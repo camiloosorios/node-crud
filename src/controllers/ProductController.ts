@@ -32,7 +32,7 @@ export class ProductController {
         try {
 
             await product.save();
-            return res.json({ message: 'Producto creado satisfactoriamente' });
+            return res.status(201).json({ message: 'Producto creado satisfactoriamente' });
         } catch (err) {
 
             console.error('Error creando producto: ' + err);
@@ -85,7 +85,7 @@ export class ProductController {
                 product.enabled = false;
                 await product.save();
     
-                return res.json({ message: 'Producto eliminado satisfactoriamente' });
+                return res.json({ message: 'Producto eliminado correctamente' });
             }
 
             return res.status(404).json({ message: `Producto con id ${id} no existe` })

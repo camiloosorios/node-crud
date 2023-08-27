@@ -75,7 +75,7 @@ export class AuthController {
 
             const token = generateToken(payload, process.env.SECRET_KEY!);
 
-            return res.json({ message: 'Usuario creado correctamente', token });
+            return res.status(201).json({ message: 'Usuario creado correctamente', token });
 
         }catch (err) {
             console.error(`Error creando usuario: ${err}`);

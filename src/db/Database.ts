@@ -1,22 +1,23 @@
 import { DataSource } from 'typeorm';
-import User from '../entities/User';
-import Product from '../entities/Product';
-import ProductPurchase from '../entities/ProductPurchase';
+import { Product, ProductPurchase, User} from '../entities';
 
 class Database {
 
-  public static createDataSource() {
+  public static createDataSource(): DataSource {
     return new DataSource({
       type: 'postgres',
-      host: 'localhost',
-      port: 5433,
+      host: 'db',
+      port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       logging: true,
+      synchronize: true,
       entities: [User, Product, ProductPurchase]
     });
   }
+
+
 }
 
 export default Database;

@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, BaseEntity } from "typeorm";
-import ProductPurchase from "./ProductPurchase";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
+import { ProductPurchase } from './';
+import { UserRoles } from '../enums/UserRoles';
 
-@Entity() 
-class User extends BaseEntity {
+@Entity({ name: 'users' }) 
+export class User extends BaseEntity {
 
   @PrimaryGeneratedColumn() 
   id: number;
@@ -19,9 +20,15 @@ class User extends BaseEntity {
   @Column() 
   password: string;
 
+  @Column({
+    type: 'enum',
+    enum: UserRoles,
+    default: UserRoles.USER,
+  })
+  role: UserRoles;
+
   @OneToMany(() => ProductPurchase, purchase => purchase.user)
   purchases: ProductPurchase[];
 }
 
-export default User;
 

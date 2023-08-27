@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-@Entity()
-class Product extends BaseEntity {
+@Entity({ name: 'products' })
+export class Product extends BaseEntity {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,5 +21,3 @@ class Product extends BaseEntity {
   @Column({ default: true })
   enabled: boolean;
 }
-
-export default Product;

@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { check } from "express-validator";
-import AuthController from '../controllers/AuthController';
-import fieldsValidator from "../helpers/fieldsValidator";
+import { Router } from 'express';
+import { check } from 'express-validator';
+import { AuthController } from '../controllers';
+import { fieldsValidator } from '../middlewares';
 
-class AuthRouter {
+export class AuthRouter {
 
     private router: Router;
     private authController: AuthController;
@@ -16,22 +16,26 @@ class AuthRouter {
     public getRoutes(): Router {
         
         this.router.post('/login', [
-            check('email', 'Correo Electrónico Inválido').isEmail(),
-            check('password', 'La contraseña debe tener min. 6 caractéres').isLength({ min: 6 }),
+            check('email', 'Correo Electrónico Inválido')
+                .isEmail(),
+            check('password', 'La contraseña debe tener min. 6 caractéres')
+                .isLength({ min: 6 }),
             fieldsValidator
         ], this.authController.login);
 
         this.router.post('/register', [
-            check('name', 'El nombre es requerido').not().isEmpty(),
-            check('email', 'Correo Electrónico es requerido').not().isEmpty(),
+            check('name', 'El nombre es requerido')
+                .not().isEmpty(),
+            check('email', 'Correo Electrónico es requerido')
+                .not().isEmpty(),
             check('email', 'Correo Electrónico Inválido').isEmail(),
-            check('password', 'La contraseña debe tener min. 6 caractéres').isLength({ min: 6 }),
-            check('money', 'El campo dinero es requerido y númerico').isNumeric(),
+            check('password', 'La contraseña debe tener min. 6 caractéres')
+                .isLength({ min: 6 }),
+            check('money', 'El campo dinero es requerido y númerico')
+                .isNumeric(),
             fieldsValidator
-        ], this.authController.register);
+        ], this.authController.create);
         
         return this.router;
     }
 }
-
-export default AuthRouter;

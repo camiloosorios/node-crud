@@ -1,8 +1,8 @@
-import { Router } from "express";
-import PurchaseController from '../controllers/PurchaseController';
-import validateJsonWebToken from "../helpers/jwtValidator";
+import { Router } from 'express';
+import { PurchaseController } from '../controllers';
+import { fieldsValidator, jwtValidator } from '../middlewares';
 
-class PurchaseRouter {
+export class PurchaseRouter {
 
     private router: Router;
     private purchaseController: PurchaseController;
@@ -14,10 +14,11 @@ class PurchaseRouter {
     
     public getRoutes(): Router {
         
-        this.router.post('/create', validateJsonWebToken, this.purchaseController.create);
+        this.router.post('/', [
+            jwtValidator,
+            fieldsValidator
+        ], this.purchaseController.create);
 
         return this.router;
     }
 }
-
-export default PurchaseRouter;

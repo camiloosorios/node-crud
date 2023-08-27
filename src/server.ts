@@ -1,9 +1,8 @@
-import express, { Application } from "express";
-import cors from "cors";
-import Database from "./db/Database";
-import AuthRouter from "./routes/AuthRouter";
-import ProductRouter from "./routes/ProductRouter";
-import PurchaseRouter from "./routes/PurchaseRouter";
+import express, { Application } from 'express';
+import cors from 'cors';
+import Database from './db/Database';
+import { AuthRouter, ProductRouter, PurchaseRouter } from './routes';
+import { DataSource } from 'typeorm';
 
 class Server {
 
@@ -12,7 +11,7 @@ class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || "8080";
+    this.port = process.env.APP_PORT || '8080';
 
     this.setupMiddlewares();
     this.setupRoutes();
@@ -32,17 +31,19 @@ class Server {
 
     this.app.use('/auth', authRouter.getRoutes());
     this.app.use('/products', productRouter.getRoutes());
-    this.app.use("/purchases", purchaseRouter.getRoutes());
+    this.app.use('/purchases', purchaseRouter.getRoutes());
   }
 
   private async connectToDatabase(): Promise<void> {
     try {
         
-        await Database.createDataSource().initialize();
+        await Database.createDataSource()
+          .initialize()
+          .then(()=> console.log('Database conected'));
 
     } catch (error) {
 
-        console.error("Error connecting to database:", error);
+        console.error(`Error connecting to database: ${error}`);
 
     }
   }

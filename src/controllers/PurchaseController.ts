@@ -52,7 +52,7 @@ export class PurchaseController {
 
             await queryRunner.commitTransaction();
 
-            return res.json({ message: 'Compra realizada correctamente' });
+            return res.json({ message: 'Compra realizada exitosamente' });
         } catch (err) {
             await queryRunner.rollbackTransaction();
 
@@ -98,7 +98,7 @@ export class PurchaseController {
             const matchingProduct = requestedProducts.find(product => product.id === selectedProduct.id);
             if (matchingProduct && matchingProduct.quantity > selectedProduct.quantity) {
                 throw new PurchaseValidateError( 
-                    `No hay suficientes existencias para el producto con ID ${selectedProduct.id}`
+                    `No hay suficientes existencias para el producto con ID: ${selectedProduct.id}`
                 );            
             }
         }
